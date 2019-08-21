@@ -18,6 +18,8 @@ class ShaderProgram:
         # Create the program.
         self.shader = shaders.compileProgram(vertexShader,fragmentShader)
 
+        gl.glUseProgram(self.shader)
+
 
     def readShaderFromFile(self,path: str) -> str:
         ''' Reads the source code of a shader file and returns its contents as a string. '''
@@ -25,11 +27,25 @@ class ShaderProgram:
         source = shaderFile.read()
         return source
 
+    def setUniform1i(self,uniformName : str, x : int):
+        ''' Sets the value of an int uniform on the shader program. '''
+        uniform = gl.glGetUniformLocation(self.shader, uniformName)
+        #gl.glUseProgram(self.shader)
+        gl.glUniform1i(uniform, x)
+
+
+
     def setUniform2f(self,uniformName: str, x: float, y: float):
         ''' Sets the value of a vec2 uniform on the shader program. '''
-        uniform = gl.glGetUniformLocation(self.shader,uniformName)
-        gl.glUseProgram(self.shader)
-        gl.glUniform2f(uniform,x,y)
+        uniform = gl.glGetUniformLocation(self.shader, uniformName)
+        #gl.glUseProgram(self.shader)
+        gl.glUniform2f(uniform, x, y)
+
+    def setUniform3f(self,uniformName: str, x: float, y: float, z: float):
+        ''' Sets the value of a vec3 uniform on the shader program. '''
+        uniform = gl.glGetUniformLocation(self.shader, uniformName)
+        #gl.glUseProgram(self.shader)
+        gl.glUniform3f(uniform, x, y, z)
 
 
 
