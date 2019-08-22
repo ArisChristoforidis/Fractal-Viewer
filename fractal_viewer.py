@@ -19,14 +19,13 @@ from camera import Camera2D
 DIMENSIONS = [800, 600]
 
 # The initial number of iterations to be performed for the calculation of the fractal.
-DEFAULT_ITERATIONS = 255
-AUTO_UPDATE_ITERATIONS = True
+DEFAULT_ITERATIONS = 500
+AUTO_UPDATE_ITERATIONS = False
 
 MIN_ITERATIONS = 1
-MAX_ITERATIONS = m.inf
+MAX_ITERATIONS = 1000#m.inf
 
-
-
+# The coordinates of the quad that the shader is displayed on.
 vertices = np.array([
     -1.0,-1.0,
     -1.0, 1.0,
@@ -34,16 +33,19 @@ vertices = np.array([
      1.0, 1.0
 ],dtype='f')
 
+# Index directions for creating the quad by forming triangles.
 indices = np.array([
     0,1,2,
     1,2,3
 ],dtype=np.int32)
 
 def handleEvents():
+    ''' Handles pygame window events. '''
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
+
 
 def setupWindow():
     ''' Initializes pygame and configures window and camera parameters. '''
@@ -55,9 +57,20 @@ def setupWindow():
     glu.gluOrtho2D(-1,1,-1,1)
     gl.glViewport(0,0,DIMENSIONS[0],DIMENSIONS[1])
 
+    gl.glClearColor(0.0,0.0,0.0,1.0)
+
+
 def getIterationCount(scale):
-    ''' Calculates the number of iterations needed to continue getting good data from the fractal. '''
+    ''' 
+    Calculates the number of iterations needed to continue getting good data from the fractal.
+    Note that as the depth increases, this tends to get very expensive and can be the cause of 
+    significant performance drops.
+    '''
+
+    # A very simple formula to calculate iterations needed for the given scale.
     iterations = int(DEFAULT_ITERATIONS / (scale * 10))
+
+    # Constrain the number of iterations to be in the range [MIN_ITERATIONS, MAX_ITERATIONS]
     iterations = int(np.clip(iterations,MIN_ITERATIONS,MAX_ITERATIONS))
     return iterations
 
@@ -81,7 +94,7 @@ def main():
         pan,zoom = camera.move()
         
         if pan:
-            shaderprogram.setUniform3f("cameraPos",camera.position[0],camera.position[1],camera.position[2])
+            shaderprogram.setUniform2f("cameraPos",camera.position[0],camera.position[1])
         
         if zoom:    
             shaderprogram.setUniform2f("scale",camera.scaleVector[0],camera.scaleVector[1])
@@ -92,7 +105,7 @@ def main():
 
         renderer.clearScreen()
         
-        # Render the quads
+        # Render the quads.
         renderer.render2D(mesh,shaderprogram.shader)
         
         # Swap buffers.

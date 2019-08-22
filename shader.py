@@ -18,6 +18,7 @@ class ShaderProgram:
         # Create the program.
         self.shader = shaders.compileProgram(vertexShader,fragmentShader)
 
+        # Use shader.
         gl.glUseProgram(self.shader)
 
 
