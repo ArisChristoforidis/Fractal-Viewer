@@ -13,7 +13,7 @@ uniform int iterations;
 in vec4 gl_FragCoord;
 
 vec3 hsv2rgb(vec3 val){
-    //Converts an HSV vector to an RGB vector.
+    // Converts an HSV vector to an RGB vector.
     vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
     vec3 p = abs(fract(val.xxx + K.xyz) * 6.0 - K.www);
     return val.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), val.y);
@@ -47,7 +47,7 @@ int mandelbrot(vec2 p){
 }
 
 void main() {
-    //Calculate the point position.
+    // Calculate the point position.
     vec2 point = (gl_FragCoord.xy)/resolution.xy;
     int value =  mandelbrot(point);
     FragColor = getPointColor(value);
