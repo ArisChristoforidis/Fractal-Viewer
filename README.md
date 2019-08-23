@@ -7,7 +7,7 @@ This is a simple python project that allows you to view fractals. It also provid
 
 This project uses NumPy, Pygame and PyOpenGL. You can install these packages with pip:
 
-```console
+```
 pip install numpy pygame pyopengl
 ```
     
@@ -16,7 +16,7 @@ pip install numpy pygame pyopengl
 
 Start the program by running the following command:
 
-```console
+```
 python fractal_viewer.py
 ```
 
@@ -59,7 +59,7 @@ If you want to further adjust the iteration count in this mode, you can write yo
 
 ### Camera controls
 
-You can adjust the camera properties, such as the pan or zoom speed inside the `camera.py` script.
+You can adjust the camera properties, such as the pan or zoom speed on the `Camera` class inside the `camera.py` script.
 
 ```python
 def __init__():
@@ -74,3 +74,11 @@ def move():
     if keys[pg.K_s]: self.scale *=  1.001
     ...
 ```
+
+### Creating fractals
+
+Before you can create your own fractals, you should familiarize yourself with the way shaders work and communicate with the main program. You will probably not be interacting with the `vertex.shader` file at all, but you need to understand how the `fragment.shader` functions. You can read up on fragment shaders [here](https://thebookofshaders.com/01/).
+
+After you do that, you should have no problem editing the `fragment.shader` file to draw your own fractals. Simply replace the sample `mandelbrot()` function with one of your own.
+
+The fragment shader should output a vec4 variable which represents a color value, so you have to use the value returned from the fractal function to get a color. The `getPointColor()` function does just that.
