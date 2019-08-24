@@ -44,7 +44,7 @@ DEFAULT_ITERATIONS = 500
 
 Alternatively the program can automatically determine the iteration count for a given depth. This allows for continuous zooming on the fractal without loss of quality. 
 
-__WARNING: This mode is can cause significant performance drops.__
+__WARNING: This mode can cause significant performance drops.__
 
 To minimize its effect, I have provided the ability to set the minimum and maximum number of iterations that the calculation will perform:
 
