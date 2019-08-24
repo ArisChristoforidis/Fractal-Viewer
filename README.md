@@ -55,7 +55,7 @@ MIN_ITERATIONS = 1
 MAX_ITERATIONS = 1000 # Set this math.inf to functionally remove the constraint. 
 ```
 
-If you want to further adjust the iteration count in this mode, you can write your own formula to calculate the number of iterations inside the *getIterationCount()* function.
+If you want to further adjust the iteration count in this mode, you can write your own formula to calculate the number of iterations inside the `getIterationCount()` function.
 
 ### Camera controls
 
@@ -82,3 +82,17 @@ Before you can create your own fractals, you should familiarize yourself with th
 After you do that, you should have no problem editing the `fragment.shader` file to draw your own fractals. Simply replace the sample `mandelbrot()` function with one of your own.
 
 The fragment shader should output a vec4 variable which represents a color value, so you have to use the value returned from the fractal function to get a color. The `getPointColor()` function does just that.
+
+## License
+
+Distributed under the MIT License. See `LICENSE.md` for details.
+
+## Acknowledgments
+
+[The Art of Code](https://www.youtube.com/channel/UCcAlTqd9zID6aNX3TzwxJXg)
+
+[The Cherno Project](https://www.youtube.com/user/TheChernoProject)
+
+[The Book of Shaders](https://thebookofshaders.com/)
+
+[Coding Game - Adding colors to the Mandelbrot Set](https://www.codingame.com/playgrounds/2358/how-to-plot-the-mandelbrot-set/adding-some-colors)
